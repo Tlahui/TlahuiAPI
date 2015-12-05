@@ -24,7 +24,17 @@ class User extends CI_Controller {
 
 		$this->load->model("usermodel");
 
-		echo $this->usermodel->login($username,$password);
+		$userRegister = $this->usermodel->login($username,$password);
+
+		$response ["responseStatus"] = "invalid user";
+		
+		if ($userRegister !== false )
+		{
+			$response["responseStatus"] = "OK";
+			$response["user"] = $userRegister;
+		}
+
+		echo json_encode($response);
 
 	}
 
