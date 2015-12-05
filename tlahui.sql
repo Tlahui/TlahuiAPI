@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.42)
 # Database: tlahui
-# Generation Time: 2015-12-05 19:22:38 +0000
+# Generation Time: 2015-12-05 19:24:50 +0000
 # ************************************************************
 
 
@@ -27,8 +27,8 @@ DROP TABLE IF EXISTS `product`;
 
 CREATE TABLE `product` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(200) DEFAULT NULL,
-  `precio` int(10) DEFAULT NULL,
+  `nombre` varchar(200) NOT NULL DEFAULT '',
+  `precio` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
