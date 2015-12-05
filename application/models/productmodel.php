@@ -18,4 +18,17 @@ class Productmodel extends CI_Model {
 
 		return $products;
 	}
+
+	public function getAvailability($productID)
+	{
+		$this->db->where("id",$productID);
+		$availability = $this->db->get("product")->row();
+
+		if($availability)
+		{
+			return $availability;
+		}
+
+		return false;
+	}
 }
