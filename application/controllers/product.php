@@ -29,6 +29,26 @@ class Product extends CI_Controller {
 
 		echo json_encode($response);
 	}
+
+	public function getAvailability()
+	{
+		$response["responseStatus"] = "Product not found";
+
+		$productID = $this->input->post("idProduct");
+
+		$this->load->model("productmodel");
+
+		$productAvailability = $this->productmodel->getAvailability($productID);
+
+		if(false !== $productAvailability)
+		{
+			$response["responseStatus"] = "OK";
+			$response["availability"] = true;
+			$response["qty"] = $productAvailability->qty;
+		}
+
+		echo json_encode($response);
+	}
 }
 
 /* End of file product.php */
