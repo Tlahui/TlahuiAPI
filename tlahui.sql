@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.42)
 # Database: tlahui
-# Generation Time: 2015-12-05 19:24:50 +0000
+# Generation Time: 2015-12-05 20:09:35 +0000
 # ************************************************************
 
 
@@ -28,10 +28,21 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) NOT NULL DEFAULT '',
-  `precio` int(10) NOT NULL,
+  `precio` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+
+INSERT INTO `product` (`id`, `nombre`, `precio`)
+VALUES
+	(1,'Blusa',891.9),
+	(2,'Saco',67.9),
+	(3,'Camisa',1245.9);
+
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table user
