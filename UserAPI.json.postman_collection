@@ -1,0 +1,487 @@
+{
+	"owner": "236271",
+	"lastUpdatedBy": "236271",
+	"lastRevision": 93787627,
+	"team": null,
+	"id": "47f93d18-e41d-0344-3dfa-fe52c4484ce7",
+	"name": "User API",
+	"description": "",
+	"remoteLink": "https://www.getpostman.com/collections/387d4db7796b1724efd1",
+	"order": [
+		"a814bb08-bbad-25ca-ac6e-35a9740ec0c7",
+		"c69c01f1-f232-be04-0059-b085373ee134",
+		"00b50b93-2b5c-ccb7-0c8f-b7c491acd276",
+		"8032ecc5-bdea-d7af-bb71-abe467892228",
+		"34cf7f9a-feb3-8604-f3ca-21aa361e7e27",
+		"b21d9d3f-fc12-66fe-fa7d-ec0bb3a302fa",
+		"8fd3b32e-feec-1118-10d1-c222440a934b",
+		"9a6fd5c3-5646-70e3-ab46-db22a3ba7235",
+		"2eb18a64-dbd0-7972-9775-33af38ddeb2e",
+		"2db6a81f-c3e5-f8a6-7138-3a780eb6264a",
+		"eb212cb4-ae08-03bc-32a9-fba54cd586c1",
+		"73ef540d-cb7b-27f9-7af9-f7fdde8a9f85",
+		"ab95a5fd-afea-c036-8b99-069f78babdbe"
+	],
+	"requests": [
+		{
+			"folder": null,
+			"id": "00b50b93-2b5c-ccb7-0c8f-b7c491acd276",
+			"name": "User Edit",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "correoElectronico",
+					"value": "correo@servidor",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "password",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "direccion",
+					"value": "domicilio conocido",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "telefono",
+					"value": "0449512233",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "nombre",
+					"value": "Roberto",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "fechaNacimiento",
+					"value": "10/10/1980",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/user/register",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "2db6a81f-c3e5-f8a6-7138-3a780eb6264a",
+			"name": "Product Checkout",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "idProduct",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "## Product checkout\n\nClient sends\n\n    {\n        \"userID\":3878736,\n        \"paymentToken\": 383273897,\n        \"items\":[876,43,2345,533]\n    }\n\n\nService response\n\n    {\n        \"responseStatus\" : \"OK\",\n        \"orderNumber\": 87d876ds8\n    }\n\n",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/product/unlike",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "2eb18a64-dbd0-7972-9775-33af38ddeb2e",
+			"name": "Product Unlike",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "idProduct",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "## Product detail service\n\nClient sent\n\n    {\n        \"idProduct\" : 1\n    }\n\n\nService response\n\n    {\n        \"responseStatus\" : \"OK\",\n        \"likes\": 383273897\n    }\n    \n\nError response\n\n    {\n        \"responseStatus\" : \"Product Not Available\"\n    }\n\n",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/product/unlike",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "34cf7f9a-feb3-8604-f3ca-21aa361e7e27",
+			"name": "Item Details",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/item/details",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "73ef540d-cb7b-27f9-7af9-f7fdde8a9f85",
+			"name": "Item Like",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/item/like",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "8032ecc5-bdea-d7af-bb71-abe467892228",
+			"name": "Get Items",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "categoria",
+					"value": "dama, caballero, infantil",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/get/items",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "8fd3b32e-feec-1118-10d1-c222440a934b",
+			"name": "User A jijos",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "## testing",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/user/ajijos",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "9a6fd5c3-5646-70e3-ab46-db22a3ba7235",
+			"name": "Product Like",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "idProduct",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "## Product detail service\n\nClient sent\n\n    {\n        \"idProduct\" : 1\n    }\n\n\nService response\n\n    {\n        \"responseStatus\" : \"OK\",\n        \"likes\": 383273897\n    }\n    \n\nError response\n\n    {\n        \"responseStatus\" : \"Product Not Available\"\n    }\n\n",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/product/like",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "a814bb08-bbad-25ca-ac6e-35a9740ec0c7",
+			"name": "User Login",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "username",
+					"value": "felipe",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "velasco",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/user/login",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7",
+			"responses": [
+				{
+					"owner": "236271",
+					"lastUpdatedBy": "236271",
+					"lastRevision": 93519269,
+					"request": {
+						"url": "http://localhost:8888/index.php/user/login",
+						"headers": [
+							{
+								"key": "Cache-Control",
+								"name": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Postman-Token",
+								"name": "Postman-Token",
+								"value": "f4409d29-00d0-649d-29af-dee00fb707f3"
+							}
+						],
+						"data": [
+							{
+								"key": "username",
+								"value": "felipe",
+								"enabled": true
+							},
+							{
+								"key": "password",
+								"value": "velasco",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					},
+					"id": "1ef43552-5dc0-d72b-5044-506a9fa1b34d",
+					"name": "",
+					"status": "",
+					"responseCode": {
+						"code": 500,
+						"name": "Internal Server Error"
+					},
+					"time": "10",
+					"headers": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "close",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "0",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "text/html",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sat, 05 Dec 2015 04:14:48 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "Apache/2.4.16 (Ubuntu)",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "",
+					"language": "html",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "{\"url\":\"http://localhost:8888/index.php/user/login\",\"headers\":[{\"key\":\"Cache-Control\",\"name\":\"Cache-Control\",\"value\":\"no-cache\"},{\"key\":\"Postman-Token\",\"name\":\"Postman-Token\",\"value\":\"f4409d29-00d0-649d-29af-dee00fb707f3\"}],\"data\":[{\"key\":\"username\",\"value\":\"felipe\",\"enabled\":true},{\"key\":\"password\",\"value\":\"velasco\",\"enabled\":true}],\"method\":\"POST\",\"dataMode\":\"params\"}",
+					"createdAt": "2015-12-05T04:14:49.000Z",
+					"updatedAt": "2015-12-05T04:14:49.000Z",
+					"write": true
+				}
+			]
+		},
+		{
+			"folder": null,
+			"id": "ab95a5fd-afea-c036-8b99-069f78babdbe",
+			"name": "Item Unlike",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/item/unlike",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "b21d9d3f-fc12-66fe-fa7d-ec0bb3a302fa",
+			"name": "Item Availability",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/item/availability",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "c69c01f1-f232-be04-0059-b085373ee134",
+			"name": "User Register",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "correoElectronico",
+					"value": "correo@servidor",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "password",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "direccion",
+					"value": "domicilio conocido",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "telefono",
+					"value": "0449512233",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "nombre",
+					"value": "Roberto",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "fechaNacimiento",
+					"value": "10/10/1980",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/user/register",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		},
+		{
+			"folder": null,
+			"id": "eb212cb4-ae08-03bc-32a9-fba54cd586c1",
+			"name": "Request Invoice",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "idProduct",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "## Request Invoice\n\nClient sends\n\n    {\n        \"userID\":3878736,\n        \"orderNumber\": 383273897,\n        \"address\":\"\",\n        \"name\":\"\"\n        //... invoice data\n    }\n\n\nService response\n\n    {\n        \"responseStatus\" : \"OK\" //\n    }\n\n",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "{{tlahui}}/product/unlike",
+			"preRequestScript": "",
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "47f93d18-e41d-0344-3dfa-fe52c4484ce7"
+		}
+	]
+}
