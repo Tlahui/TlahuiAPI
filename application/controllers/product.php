@@ -63,17 +63,16 @@ class Product extends CI_Controller {
 
         $response["responseStatus"] = "Error";
         $productID = $this->input->post("idProduct");
-        $urlImage = "/Testurl.jpg";
 
         $product = $this->productmodel->getAvailability($productID);
 
         if($product){
-            if (!$this->upload->do_upload()){
+            if (!$this->upload->do_upload("productFile")){
                 $response["message"] = array('error' => $this->stripHTMLtags($this->upload->display_errors()));
             }
             else{
                 $dataImage = array('upload_data' => $this->upload->data());
-                $addProductImage = $this->productmodel->AddProductImage($productID);
+                $addProductImage = $this->productmodel->AddProductImage($productID,$dataImage["upload_data"]["file_name"]);
                 if($addProductImage){
                     $response["responseStatus"] = "OK";
                     $response["urlImage"] = $dataImage["upload_data"]["file_name"];
