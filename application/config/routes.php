@@ -43,6 +43,7 @@ $route['get/products']				= "product/getAll";
 $route['product/availability']		= "product/getAvailability";
 $route['default_controller'] 		= "welcome";
 $route['404_override'] = '';
+$route['product/details'] 				= "product/getDetails";
 
 
 /* End of file routes.php */
