@@ -37,12 +37,12 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-$route['user/login'] 				= "user/login";
-$route['user/register'] 			= "user/register";
-$route['get/products']				= "product/getAll";
-$route['product/availability']		= "product/getAvailability";
+
+$route['user/login'] 				= 'user/login';   // user es el controlador, login es la funcion... se puede anteponer una carpeta por ejemplo "micarpeta/user/login"
+$route['user/register'] 			= 'user/register';   // como comparten user... register es una nueva función en el archivo user.php
+$route['admin/create'] 			    = 'admin/create';   // como comparten user... register es una nueva función en el archivo user.php
 $route['default_controller'] 		= "welcome";
-$route['404_override'] = '';
+$route['404_override'] 				= '';
 
 
 /* End of file routes.php */
