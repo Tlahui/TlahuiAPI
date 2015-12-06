@@ -62,15 +62,26 @@ class Product extends CI_Controller {
 	 * Returns: idProduct, reponseStatus: OK
 	 */
 	public function addProduct() {
+		
 		$response["responseStatus"] = false;
 		
-		$nombre = this->input->post("nombre");
-		$precio = this->input->post("precio");
-		$qty = this->input->post("qty");
-		$images = this->input->post("images");
+		$product["nombre"]  = $this->input->post("nombre");
+		$product["precio"] = $this->input->post("precio");
+		$product["qty"] = $this->input->post("qty");
 		
+		$images = $this->input->post("images");
 		
+		//$images = explode(",",);
 		
+		//$product["images"] = $this->input->post("images");
+		
+		//$response["product"] = $product;
+		$this->load->model("productmodel");
+		$idProduct = $this->productmodel->addProduct($product);
+		
+		$this->productmodel->addProductImages($idProduct,$images);
+		
+		$response["responseStatus"] = "Ok";
 		echo json_encode($response);
 	}
 }

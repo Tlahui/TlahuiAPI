@@ -32,7 +32,25 @@ class Productmodel extends CI_Model {
 		return false;
 	}
 	
-	public function addProduct() {
-		echo "from model";
+	/*
+	 * retorna idProduct 
+	*/
+	public function addProduct($product) {
+		$this->db->insert("product",$product);
+		
+		$idProduct = $this->db->insert_id();
+		return 	$idProduct;
+	}
+	
+	
+	public function addProductImages($idProduct, $images) {
+		$imageList = explode(",",$images);
+		
+		for($i=0 ; $i<count($imageList); $i++) {
+			$imageUrl["idProduct"] = $idProduct;
+			$imageUrl["url"] = $imageList[$i];
+			$this->db->insert("productImage",$imageUrl);
+		}
+		
 	}
 }
