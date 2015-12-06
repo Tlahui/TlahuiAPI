@@ -39,6 +39,7 @@
 */
 $route['user/login'] 				= "user/login";
 $route['user/register'] 			= "user/register";
+$route['admin/edit'] 			= "admin/edit";
 $route['get/products']				= "product/getAll";
 $route['product/availability']		= "product/getAvailability";
 $route['product/UploadProductImage']= "product/UploadProductImage";
