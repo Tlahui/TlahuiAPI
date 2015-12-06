@@ -38,9 +38,12 @@
 |
 */
 
-$route['user/login'] 				= 'user/login';   // user es el controlador, login es la funcion... se puede anteponer una carpeta por ejemplo "micarpeta/user/login"
-$route['user/register'] 			= 'user/register';   // como comparten user... register es una nueva función en el archivo user.php
+$route['user/login'] 				= "user/login";
+$route['admin/login'] 				= "admin/login";
 $route['admin/create'] 			    = 'admin/create';   // como comparten user... register es una nueva función en el archivo user.php
+$route['user/register'] 			= "user/register";
+$route['get/products']				= "product/getAll";
+$route['product/availability']		= "product/getAvailability";
 $route['default_controller'] 		= "welcome";
 $route['404_override'] 				= '';
 

@@ -2,11 +2,25 @@
 
 class Admin extends CI_Controller {
 
+
 	public function login()
 	{
-		// ¿ el admin va a tener un login ?
-	}
+		$username = $this->input->post("username");
+		$password = $this->input->post("password");
 
+		$this->load->model("adminmodel");
+
+		$adminRegister = $this->adminmodel->login($username,$password);
+
+		$response ["responseStatus"] = "invalid user";
+
+		if ($adminRegister !== false )
+		{
+			$response["responseStatus"] = "OK";
+			$response["user"] = $adminRegister;
+		}
+		echo json_encode($response);
+	}
 
 	// Inserta un nuevo registro, desde el consumo del webservice REGISTER
 	// Se utiliza la misma tabla USER, pero con un campo extra para indicar
@@ -98,4 +112,4 @@ class Admin extends CI_Controller {
 }
 
 /* End of file admin.php */
-/* Location: ./application/controllers/admin.php */	
+/* Location: ./application/controllers/admin.php */
