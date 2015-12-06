@@ -49,6 +49,51 @@ class Product extends CI_Controller {
 
 		echo json_encode($response);
 	}
+
+    public function UploadProductImage(){
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']	= '100';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+
+        $this->load->model("productmodel");
+        $this->load->helper(array('url'));
+        $this->load->library('upload', $config);
+
+        $response["responseStatus"] = "Error";
+        $productID = $this->input->post("idProduct");
+
+        $product = $this->productmodel->getAvailability($productID);
+
+        if($product){
+            if (!$this->upload->do_upload("productFile")){
+                $response["message"] = array('error' => $this->stripHTMLtags($this->upload->display_errors()));
+            }
+            else{
+                $dataImage = array('upload_data' => $this->upload->data());
+                $addProductImage = $this->productmodel->AddProductImage($productID,$dataImage["upload_data"]["file_name"]);
+                if($addProductImage){
+                    $response["responseStatus"] = "OK";
+                    $response["urlImage"] = $dataImage["upload_data"]["file_name"];
+                    $response["IDImage"] = $addProductImage;
+                }else{
+                    $response["message"] = "Insert Error";
+                }
+            }
+        }else{
+            $response["message"] = "Product not Exists";
+        }
+        echo json_encode($response);
+    }
+
+    private function stripHTMLtags($str)
+    {
+        $t = preg_replace('/<[^<|>]+?>/', '', htmlspecialchars_decode($str));
+        $t = htmlentities($t, ENT_QUOTES, "UTF-8");
+        return $t;
+    }
+
 }
 
 /* End of file product.php */
