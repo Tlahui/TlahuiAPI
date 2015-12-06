@@ -23,7 +23,7 @@ class Product extends CI_Controller {
 
 		// load model
 		$this->load->model("productmodel");
-
+		
 		$response["products"] = $this->productmodel->getAll();
 		$response["responseStatus"] = "OK";
 
@@ -47,6 +47,30 @@ class Product extends CI_Controller {
 			$response["qty"] = $productAvailability->qty;
 		}
 
+		echo json_encode($response);
+	}
+	
+	/*
+	 *	Function addProduct
+	 *	Insert new Product on DB
+	 *	Recive from POST request:
+	 *		- Nombre:
+	 *		- Precio
+	 *		- Cantidad
+	 *		- imagenes
+	 * 
+	 * Returns: idProduct, reponseStatus: OK
+	 */
+	public function addProduct() {
+		$response["responseStatus"] = false;
+		
+		$nombre = this->input->post("nombre");
+		$precio = this->input->post("precio");
+		$qty = this->input->post("qty");
+		$images = this->input->post("images");
+		
+		
+		
 		echo json_encode($response);
 	}
 }

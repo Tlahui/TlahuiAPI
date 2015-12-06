@@ -31,4 +31,8 @@ class Productmodel extends CI_Model {
 
 		return false;
 	}
+	
+	public function addProduct() {
+		echo "from model";
+	}
 }
