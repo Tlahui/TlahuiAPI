@@ -51,6 +51,27 @@ class Productmodel extends CI_Model {
 			$imageUrl["url"] = $imageList[$i];
 			$this->db->insert("productImage",$imageUrl);
 		}
-		
+	}
+	
+	public function checkUrlProductImage() {
+		$response = false;
+		 
+		$x = getimagesize($file);
+
+		switch ($x['mime']) {
+			case "image/gif":
+				$response = true;
+				break;
+			case "image/jpeg":
+				$response = true;
+				break;
+			case "image/png":
+				$response = true;
+				break;
+			default:
+				$response = false;
+				break;
+		}
+		return $reponse;
 	}
 }

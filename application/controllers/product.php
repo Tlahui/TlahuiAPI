@@ -65,23 +65,32 @@ class Product extends CI_Controller {
 		
 		$response["responseStatus"] = false;
 		
+		
 		$product["nombre"]  = $this->input->post("nombre");
 		$product["precio"] = $this->input->post("precio");
 		$product["qty"] = $this->input->post("qty");
 		
-		$images = $this->input->post("images");
+		if (preg_match('/^[0-9]+(?:\.[0-9]{0,2})?$/', $product["precio"])) {
+			$response["responseStatus"] = "Invalid amount";
+		}
+		else {
+			$images = $this->input->post("images");
 		
-		//$images = explode(",",);
+			$this->load->model("productmodel");
+			$idProduct = $this->productmodel->addProduct($product);
 		
-		//$product["images"] = $this->input->post("images");
+			$imageList = explode(",",$images);
+			for($i=0 ; $i<count($imageList); $i++) {
+			}
+			
+			
+			$this->productmodel->addProductImages($idProduct,$images);
+			
+			
+			//if all check 
+			$response["responseStatus"] = "Ok";	
+		}
 		
-		//$response["product"] = $product;
-		$this->load->model("productmodel");
-		$idProduct = $this->productmodel->addProduct($product);
-		
-		$this->productmodel->addProductImages($idProduct,$images);
-		
-		$response["responseStatus"] = "Ok";
 		echo json_encode($response);
 	}
 }
