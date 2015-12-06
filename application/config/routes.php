@@ -38,6 +38,7 @@
 |
 */
 $route['user/login'] 				= "user/login";
+$route['admin/login'] 				= "admin/login";
 $route['user/register'] 			= "user/register";
 $route['get/products']				= "product/getAll";
 $route['product/availability']		= "product/getAvailability";
