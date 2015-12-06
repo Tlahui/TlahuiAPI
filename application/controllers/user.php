@@ -1,100 +1,122 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class Usermodel extends CI_Model {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function login()
-	{
-		$username = $this->input->post("username");
-		$password = $this->input->post("password");
+	public function __construct()
+    {
+        // Call the Model constructor
+        parent::__construct();
+        //Connect to database
+        $this->load->database();
+    }
 
-		$this->load->model("usermodel");
+// las funciones de los modelos SIEMPRE tienen que retornar valores
+// Si no es necesario retornar nada, por convención se regresa true
 
-		$userRegister = $this->usermodel->login($username,$password);
+    public function login( $username, $password) {
 
-		$response ["responseStatus"] = "invalid user";
-		
-		if ($userRegister !== false )
-		{
-			$response["responseStatus"] = "OK";
-			$response["user"] = $userRegister;
-		}
 
-		echo json_encode($response);
+        // Recuperamos los campos de la tabla usuario
+        // buscándolo por nombre de usuario
+        $this->db->where( "usuario", $username );
+        $this->db->select("usuario,nombre,correoElectronico,direccion,telefono,password");
+        $found = $this->db->get("user")->row();
 
-	}
+        // Por default, asumimos que falló
+        $databasePassword = false;
 
-	public function register()
-	{
-		$response["responseStatus"] = "Not OK";
-		$newUser["correoElectronico"] = $this->input->post("correoElectronico");
-		$newUser["usuario"] = $this->input->post("usuario");
-		$newUser["password"] = $this->input->post("password");
-		$newUser["nombre"] = $this->input->post("nombre");
-		$newUser["fechaNacimiento"] = $this->input->post("fechaNacimiento");
-		$newUser["direccion"] = $this->input->post("direccion");
-		$newUser["telefono"] = $this->input->post("telefono");
+        // Si lo encontramos ...
+        if($found) {
+            $databasePassword = $found->password;
+        } else {
+            // Si no lo encontramos... lo buscamos por su
+            // correo electrónico ...
+            $this->db->where("correoElectronico",$username);
+            $this->db->select("usuario,nombre,correoElectronico,direccion,telefono,password");
+            $found = $this->db->get("user")->row();
+            if($found) {
+                $databasePassword = $found->password;
+            }
+        }
 
-		$this->load->model("usermodel");
+        // Si fué localizado por nombre o correo electrónico ...
+        if ($databasePassword !== false ) {
+            // Verificamos el password que introdujo, comparándolo
+            // Con el que está almacenado en la base de datos
 
-		if(0=== preg_match("/^\d{4}[\-\/\s]?((((0[13578])|(1[02]))[\-\/\s]?(([0-2][0-9])|(3[01])))|(((0[469])|(11))[\-\/\s]?(([0-2][0-9])|(30)))|(02[\-\/\s]?[0-2][0-9]))$/",$newUser["fechaNacimiento"]))
-		{
-			$response["responseStatus"]  = "Invalid Date Format. yyyy-mm-dd, yyyy mm dd, or yyyy/mm/dd Expected";
-		}
-		else
-		{
-			if (!filter_var($newUser["correoElectronico"], FILTER_VALIDATE_EMAIL) === false)
-			{
-				if($this->usermodel->usernameIsUnique($newUser["usuario"]) &&
-				 $this->usermodel->emailIsUnique($newUser["correoElectronico"]))
-				{
-					if(0 === preg_match("/^(?![0-9]{6,})[0-9a-zA-Z]{6,}$/",$newUser["password"]))
-					{
-						$response["responseStatus"] = "Password must contain at least one leter, minimum length 6, alphanumeric";
-					}
-					else
-					{
-						if(0 === preg_match("/^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/",$newUser["telefono"]))
-						{
-							$response["responseStatus"] = "Invalid phone number. Valid formats: 111-222-3333, or 111.222.3333, or (111) 222-3333, or 1112223333";
-						}
-						else
-						{
-							$newUser["password"] = password_hash($newUser["password"], PASSWORD_DEFAULT);
+            // NOTA: password_verify() se encarga de convertir a hash
+            // aunque la función original con que convertimos el pass
+            // para guardarlo a la base de datos genera un hash distinto
+            // cada vez que se ejecuta... pasword_verify() hace la validación
+            // exacta sin necesidad de "hashear" el $password que le enviemos
+            // para validar ..... 
+            if (password_verify( $password, $databasePassword)) {
+                // Quitamos de la memoria el password que enviaron
+                // ( ya que éste no viene encriptado )
+                unset($found->password);
+                // Y regresamos true ...
+                return $found;
+            }
+        }
+        
+        return false;
+    }
 
-							$response["userID"] = $this->usermodel->insertuser($newUser);
-							$response["responseStatus"] = "OK";
-						}
-					}
-				}
-				else
-				{
-					$response["responseStatus"] = "Email or Username Exists Already";
-				}
-			}
-			else
-			{
-				$response["responseStatus"] = "Invalid Email Format";
-			}
-		}
+    // checamos si el correo electrónico ya existe
+    public function emailIsUnique( $email ) {
 
-		echo json_encode($response);
-	}
+        // Esta función nos permite "construir" la consulta
+        // Codeigniter evita inyección de código  la optimiza
+        $this->db->where( "correoElectronico", $email );
+
+        // Recuperamos una sola línea de la consulta
+        // lo que va dentro de get() es el nombre de la tabla
+        // donde aplicaremos la consulta
+        $found = $this->db->get("user")->row();
+
+        // regresamos si la encontramos o no
+        if ( $found ) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    // checamos si el nombre ya existe
+    public function usernameIsUnique( $name ) {
+
+        // Esta función nos permite "construir" la consulta
+        // Codeigniter evita inyección de código  la optimiza
+        $this->db->where( "nombre", $name );
+
+        // Recuperamos una sola línea de la consulta
+        // lo que va dentro de get() es el nombre de la tabla
+        // donde aplicaremos la consulta
+        $found = $this->db->get("user")->row();
+
+        // regresamos si la encontramos o no
+        if ( $found ) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    // Insertamos el usuario que obtenemos a traves de la llamada POST
+    // al webservice
+    public function insertUser( $user ) {
+
+        // Insertamos ...
+        $this->db->insert( "user", $user );
+        // regresamos el ID que le tocó al registro
+        $userID = $this->db->insert_id();
+        return $userID;
+
+    }
+
 }
 
-/* End of file user.php */
-/* Location: ./application/controllers/user.php */
+/* End of file usermodel.php */
+/* Location: ./application/controllers/usermodel.php */
