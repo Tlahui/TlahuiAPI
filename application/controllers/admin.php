@@ -94,6 +94,19 @@ class Admin extends CI_Controller {
 
 	}
 
+	public function getClients()
+	{
+		$response["responseStatus"] = "Not OK";
+
+		// load model
+		$this->load->model("adminmodel");
+
+		$response["clients"] = $this->adminmodel->getAllClients();
+		$response["responseStatus"] = "OK";
+
+		echo json_encode($response);
+
+	}
 
 }
 

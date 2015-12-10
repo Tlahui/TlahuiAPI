@@ -71,6 +71,15 @@ class Adminmodel extends CI_Model {
 
     }
 
+    public function getAllClients()
+    {
+        $this->db->select();
+        // result() return array of objects
+        $clients = $this->db->get("clients")->result();
+
+        return $clients;
+    }
+
 }
 
 /* End of file adminmodel.php */
