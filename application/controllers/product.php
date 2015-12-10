@@ -17,38 +17,25 @@ class Product extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function getAll()
-	{
+
+	public function getDetails()
+
+	{ 
 		$response["responseStatus"] = "Not OK";
 
-		// load model
+		// Crga el Modelo para obtener los productos
 		$this->load->model("productmodel");
 
-		$response["products"] = $this->productmodel->getAll();
+		// Se asignan todos los productos de la Base de Datos
+		$response["products"] = $this->productmodel->getDetails();
+
+		// El servicios se manda llamar correctamente responde OK
 		$response["responseStatus"] = "OK";
 
 		echo json_encode($response);
 	}
 
-	public function getAvailability()
-	{
-		$response["responseStatus"] = "Product not found";
-
-		$productID = $this->input->post("idProduct");
-
-		$this->load->model("productmodel");
-
-		$productAvailability = $this->productmodel->getAvailability($productID);
-
-		if(false !== $productAvailability)
-		{
-			$response["responseStatus"] = "OK";
-			$response["availability"] = true;
-			$response["qty"] = $productAvailability->qty;
-		}
-
-		echo json_encode($response);
-	}
+	
 }
 
 /* End of file product.php */
