@@ -49,6 +49,130 @@ class Product extends CI_Controller {
 
 		echo json_encode($response);
 	}
+	
+	
+	// Pide un idProducto... y regresa las tallas disponibles para dicho producto
+	public function size()
+	{
+		$response["responseStatus"] = "Not OK";
+		
+		// Obtenemos el id del producto 
+		$idProduct = $this->input->get("idProduct");
+		
+		// load model
+		$this->load->model("productmodel");
+
+		$productSize = $this->productmodel->getProductSize( $idProduct );
+		
+		if(false !== $productSize)
+		{
+			$response["responseStatus"] = "OK";
+			$response["sizes"] = $productSize;
+		}
+		
+		$this->output
+		    ->set_content_type('application/json')
+		    ->set_output(json_encode( $response ));
+			
+	}
+	
+	
+	
+	// Actualizamos la cantidad de productos disponibles, pasándole el ID de la combinación
+	// de producto y talla (size)
+	public function updateSizeById()
+	{
+		$response["responseStatus"] = "FAIL";
+		$response["message"] = "Cantidad no pudo ser modificada";
+		
+		// Obtenemos el id del producto 
+		$id = $this->input->post("id");
+		$cantidad = $this->input->post("cantidad");
+		
+		// load model
+		$this->load->model("productmodel");
+
+		$productSize = $this->productmodel->updateSizeById( $id, $cantidad );
+		
+		if(false !== $productSize)
+		{
+			$response["responseStatus"] = "OK";
+			$response["message"] = "Cantidad modificada correctamente";
+		}
+		
+		$this->output
+		    ->set_content_type('application/json')
+		    ->set_output(json_encode( $response ));
+			
+	}
+	
+
+
+
+
+	// Adicionamos una nueva combinación de producto y talla, así como su existencia
+	public function sizeAdd()
+	{
+		$response["responseStatus"] = "FAIL";
+		$response["message"] = "Talla no pudo ser insertada";
+		
+		// Obtenemos el id del producto 
+		$idProduct = $this->input->post("idProduct");
+		$idSize = $this->input->post("idSize");
+		$cantidad = $this->input->post("cantidad");
+		
+		// load model
+		$this->load->model("productmodel");
+
+		$resultado = $this->productmodel->sizeAdd( $idProduct, $idSize, $cantidad );
+		
+		
+		if(false !== $resultado)
+		{
+			$response["responseStatus"] = "OK";
+			$response["message"] = "Talla insertada correctamente";
+			$response["data"] = $resultado;
+		}
+		
+		$this->output
+		    ->set_content_type('application/json')
+		    ->set_output(json_encode( $response ));
+			
+	}
+	
+
+
+	// Eliminamos una combinación de producto y talla, así como su existencia
+	public function sizeDelete()
+	{
+		$response["responseStatus"] = "FAIL";
+		$response["message"] = "Talla no pudo ser eliminado para el producto";
+		
+		// Obtenemos el id del producto 
+		$idProduct = $this->input->post("idProduct");
+		// Si pasan idSize lo tomamos, si no le asignamos 0 que significará TODOS en código
+		$idSize = $this->input->post("idSize");
+		$idSize = ( trim( $idSize ) == "" ? 0 : $idSize );
+
+		// load model
+		$this->load->model("productmodel");
+
+		$resultado = $this->productmodel->sizeDelete( $idProduct, $idSize );
+		
+		
+		if(0 !== $resultado)
+		{
+			$response["responseStatus"] = "OK";
+			$response["message"] = "Talla eliminada correctamente para el producto";
+		}
+		
+		$this->output
+		    ->set_content_type('application/json')
+		    ->set_output(json_encode( $response ));
+			
+	}
+	
+	
 }
 
 /* End of file product.php */
