@@ -48,5 +48,20 @@ $route['default_controller'] 		= "welcome";
 $route['404_override'] 				= '';
 
 
+
+
+
+
+
+
+
+
+
+$route['product/size'] 				= "product/size";
+$route['product/size/update/1'] 	= "product/updateSizeById";
+$route['product/size/add'] 			= "product/sizeAdd";
+$route['product/size/delete'] 		= "product/sizeDelete";
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
