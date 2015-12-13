@@ -30,11 +30,29 @@ class PurchaseController extends CI_Controller {
 
     }
 
+    /*
+     * Funcion para eliminar una compra, recibe idPurchase
+     * y elimina el registro validando que solicitudCancelacion=1
+     * esta funcion es usada por un usuario administrador
+     */
     public function cancel() {
-        /*
-          TO DO
-        */
+        $idPurchase = $this->input->post("idPurchase");
 
+        $response["statusResponse"] = false;
+
+        $this->load->model("PurchaseModel");
+        $canceled = $this->PurchaseModel->cancel($idPurchase);
+
+        if($canceled) {
+            $response["responseStatus"] = "Ok";
+            $response["message"] = "Compra cancelada correctamente";
+        }
+        else {
+            $response["responseStatus"] = "FAIL";
+            $response["message"] = "La compra no pudo ser cancelada";
+        }
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     /*
@@ -52,7 +70,7 @@ class PurchaseController extends CI_Controller {
 
         if($updated) {
             $response["responseStatus"] = "Ok";
-            $response["message"] = "Solicitud de cancelaci&oacute;n exitosa";
+            $response["message"] = "Solicitud de cancelacion exitosa";
         }
         else {
             $response["responseStatus"] = "FAIL";

@@ -34,8 +34,20 @@ class PurchaseModel extends CI_Model {
 
     // Funcion para cancelar una compra.
     public function cancel($id) {
+        /*$data = array(
+            "id" => $id,
+            "solicitudCancelacion" => 1
+        );*/
+        $this->db->where("id", $id);
+        $this->db->where("solicitudCancelacion", 1);
+        $this->db->delete("Purchase");
 
-
+        if($this->db->affected_rows() >1 ){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     //funcion para solicitar una cancelación de compra
