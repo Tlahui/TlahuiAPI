@@ -12,35 +12,21 @@ class ProductModel extends CI_Model {
         parent::__construct();
     }
 
-
+    /**
+     * Listado de productos
+     *
+     * Obtiene un array con los registros de la tabla ProductImage
+     * y en caso que no exista revuelve false
+     *
+     * @author Gosh
+     * @return Array|boolean
+     */
     function ProductList(){
         $query = $this->db->get('Product');
         if($query->num_rows()>0){
             return $query->result_array();
         }else{
             return false;
-        }
-    }
-
-    function ImageListFromProduct($id){
-        $query = $this->db->get_where('ProductImage', array('idProduct' => $id));
-        if($query->num_rows()>0){
-            return $query->result_array();
-        }else{
-            return 0;
-        }
-    }
-
-    function CategoryFromProduct($id){
-        $this->db->select('Category.id, Category.nombre');
-        $this->db->from('ProductCategory');
-        $this->db->where('ProductCategory.idProduct', $id);
-        $this->db->join('Category', 'Category.id = ProductCategory.idCategory');
-        $query = $this->db->get();
-        if($query->num_rows()>0){
-            return $query->result_array();
-        }else{
-            return 0;
         }
     }
 
