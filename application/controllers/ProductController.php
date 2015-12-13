@@ -27,11 +27,13 @@ class ProductController extends CI_Controller {
     }
 
     public function listar(){
+        $this->load->model('CategoryModel');
+        $this->load->model('ProductImageModel');
         $productos = $this->ProductModel->ProductList();
         $i=0;
         foreach($productos as $producto){
-            $imagenes = $this->ProductModel->ImageListFromProduct($producto['id']);
-            $categorias = $this->ProductModel->CategoryFromProduct($producto['id']);
+            $imagenes = $this->ProductImageModel->ImageListFromProduct($producto['id']);
+            $categorias = $this->CategoryModel->CategoryFromProduct($producto['id']);
             $productos[$i]['imagenes']=$imagenes;
             $productos[$i]['categorias']=$categorias;
             $i++;
