@@ -12,4 +12,22 @@ class ProductModel extends CI_Model {
         parent::__construct();
     }
 
+    /**
+     * Listado de productos
+     *
+     * Obtiene un array con los registros de la tabla ProductImage
+     * y en caso que no exista revuelve false
+     *
+     * @author Gosh
+     * @return Array|boolean
+     */
+    function ProductList(){
+        $query = $this->db->get('Product');
+        if($query->num_rows()>0){
+            return $query->result_array();
+        }else{
+            return false;
+        }
+    }
+
 }
