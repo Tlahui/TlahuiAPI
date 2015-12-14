@@ -15,7 +15,7 @@ class InvoiceModel extends CI_Model {
     $this->db->select("id,idPurchase,idAddress,nombre,rfc,numFactura,fechaEmision,fechaPago,tipoPago");
     $invoice = $this->db->get_where("Invoice",array("id"=>$idPurchase))->row();
 
-    $data["idInvoice"] = $idPurchase;
+    $data["idInvoice"] = $idPurchase; //Paametro que recibe del controlador
 
     $idPurchase = $invoice->idPurchase;
     $this->db->select("id as idPurchase, pagoProcesado, referenciaPago as referencia, montoTotal, montoEnvio, idAddress, tipoPago");
@@ -56,7 +56,6 @@ class InvoiceModel extends CI_Model {
     $data["purchase"] = $purchasea;
     $data["address"] = $addressa;
     $data["user"] = $usera;
-
 
     return $data;
   }

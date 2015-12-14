@@ -10,8 +10,11 @@ class PurchaseModel extends CI_Model {
         $this->load->database();
     }
 
-    public function getInfo($id) {
 
+    /*
+     * Funcion para obtener información de compra
+     */
+    public function getInfo($id) {
 
         $this->db->select("id as idPurchase, pagoProcesado, referenciaPago as referencia, montoTotal, montoEnvio, idAddress, tipoPago");
         $result = $this->db->get_where("Purchase",array("id"=>$id))->row();
@@ -32,7 +35,9 @@ class PurchaseModel extends CI_Model {
         return $purchase;
     }
 
-    // Funcion para cancelar una compra.
+    // Funcion para cancelar una compra. Valida que el campo
+    // solicitudCancelacion = 1
+    // para eliminar el registro
     public function cancel($id) {
         /*$data = array(
             "id" => $id,
@@ -50,7 +55,10 @@ class PurchaseModel extends CI_Model {
         }
     }
 
-    //funcion para solicitar una cancelación de compra
+    /* funcion para solicitar una cancelación de compra
+     * setea solicitudCancelacion = 1
+     * solo el administrador puede eliminar el registro
+     */
     public function cancelRequest($id) {
         $data = array(
             "solicitudCancelacion"=>1
