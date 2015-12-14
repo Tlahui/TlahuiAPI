@@ -42,6 +42,11 @@ class ProductController extends CI_Controller {
     }
 
     public function add(){
+        /******************************************
+        *
+        *  Alta de Productos
+        *
+        ******************************************/
 
     }
 
