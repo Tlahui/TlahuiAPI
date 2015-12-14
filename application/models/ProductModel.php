@@ -44,14 +44,13 @@ class ProductModel extends CI_Model {
             $response["responseStatus"]= "ok";
             if( $this->db->insert('ProductLike', $dataProductLike)){
                 $count = $this->db->query('SELECT * FROM ProductLike')->num_rows;//para agregar el total de likes
-                echo $count, " likes";
-                return $count; 
+                 $response["responseStatus"]= $dataProductLike;
+                return $dataProductLike; 
             }
             else{
                 return false;
             }
         }
-  echo json_encode($response);             
+        echo json_encode($response);             
     }
-
 }

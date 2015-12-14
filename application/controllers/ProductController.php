@@ -42,7 +42,7 @@ class ProductController extends CI_Controller {
     }
 
     public function add(){
-
+      
     }
 
     public function edit(){
@@ -70,8 +70,10 @@ class ProductController extends CI_Controller {
         $idUser = $this->input->post("idUser");
      
         $this->load->model("ProductModel");
-        $this->ProductModel->ProductLike($idProduct, $idUser);
+        $query = $this->ProductModel->ProductLike($idProduct, $idUser);
+        $this->output->set_content_type('application/json')->set_output(json_encode($query));
     }
+
 
     public function unlike(){
 
