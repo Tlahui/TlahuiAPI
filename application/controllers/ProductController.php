@@ -70,7 +70,11 @@ class ProductController extends CI_Controller {
     }
 
     public function unlike(){
-
+        $idProduct = $this->input->post("idProduct");
+        $idUser = $this->input->post("idUser");
+     
+        $this->load->model("ProductModel");
+        $this->ProductModel->ProductUnLike($idProduct, $idUser);
     }
 
 }
