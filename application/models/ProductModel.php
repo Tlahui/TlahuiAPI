@@ -33,24 +33,25 @@ class ProductModel extends CI_Model {
     function ProductLike($idProduct, $idUser){  
         $dataProductLike = array(
             'idProduct' => $idProduct,
-            'idUser' => $idUser
-        );  
+            'idUser' => $idUser);
+
         $this->db->where('idProduct', $idProduct);
         $this->db->where('idUser', $idUser);
         $query = $this->db->get('ProductLike');
-        $response["responseStatus"]= "no ok";     
+        $response["responseStatus"]= "failed";    //ya existe un like en el mismo producto 
 
         if($query->num_rows()==0){ //no existe relación usuario y producto, entonces agrego
             $response["responseStatus"]= "ok";
             if( $this->db->insert('ProductLike', $dataProductLike)){
-            $count = $this->db->query('SELECT * FROM ProductLike');//para agregar el total de likes
-            echo  $count->num_rows();    
+                $count = $this->db->query('SELECT * FROM ProductLike')->num_rows;//para agregar el total de likes
+                echo $count, " likes";
+                return $count; 
             }
             else{
                 return false;
             }
         }
-    echo json_encode($response);             
+  echo json_encode($response);             
     }
 
 }
