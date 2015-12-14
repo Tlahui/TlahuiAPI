@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ProductModel extends CI_Model {
+class PurchaseModel extends CI_Model {
 
     /**
      * Modelo definido para interactuar con la tabla "Product"
@@ -10,6 +10,7 @@ class ProductModel extends CI_Model {
     function __construct()
     {
         parent::__construct();
+        $this->load->database();
     }
 
     /**
@@ -30,9 +31,11 @@ class ProductModel extends CI_Model {
         }
     }
 
-   
+    function insertPurchase($Purchase){
 
-
+        $this->db->insert("Purchase",$Purchase);
+        $PurchaseID=$this->db->insert_id();
+        return $PurchaseID;
     }
 
   
