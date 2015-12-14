@@ -30,7 +30,7 @@ class ProductModel extends CI_Model {
         }
     }
 
-    unction ProductUnLike($idProduct, $idUser){  
+    function ProductUnLike($idProduct, $idUser){  
         $dataProductUnLike = array(
             'idProduct' => $idProduct,
             'idUser' => $idUser);
