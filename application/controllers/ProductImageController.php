@@ -20,24 +20,32 @@ class ProductImageController extends CI_Controller {
         parent::__construct();
         $this->load->model('ProductImageModel');
     }
-
+   
     public function add(){
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '100';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
 
+        $this->load->model("ProductImageModel");
+        $this->load->helper(array('url'));
+        $this->load->library('upload', $config);
+
+        $response["responseStatus"] = "Fail";
+        $productID = $this->input->post("idProduct");
+        $dataImage = array('upload_data' => $this->upload->data());
+        $addProductImage = $this->ProductImageModel->AddProductImage($productID,$dataImage["upload_data"]["file_name"]);
+            if($addProductImage){
+                $response["responseStatus"] = "OK";
+                $response["urlImage"] = $dataImage["upload_data"]["file_name"];
+            }
+            else{
+                $response["message"] = "Insert Error";
+            }
+
+        echo json_encode($response);
     }
-
-    public function get($id){
-
-    }
-
-    public function all($idUser){
-
-    }
-
-    public function delete(){
-
-    }
-
-
 }
 
 /* End of file welcome.php */

@@ -30,5 +30,18 @@ class ProductImageModel extends CI_Model {
             return 0;
         }
     }
+  
+public function  AddProductImage($productID,$url){
+        $dataProductImage = array(
+            'url' => $url,
+            'idProduct' => $productID
+        );
+        $query = $this->db->insert('ProductImage', $dataProductImage);
+        if($query){
+            return $this->db->insert_id();
+        }else{
+            return false;
+        }
+    }
 
 }
