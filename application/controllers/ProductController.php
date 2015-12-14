@@ -64,9 +64,13 @@ class ProductController extends CI_Controller {
     public function category($idCategory){
 
     }
-
-    public function like(){
-
+    
+    public function like(){      
+        $idProduct = $this->input->post("idProduct");
+        $idUser = $this->input->post("idUser");
+     
+        $this->load->model("ProductModel");
+        $this->ProductModel->ProductLike($idProduct, $idUser);
     }
 
     public function unlike(){
