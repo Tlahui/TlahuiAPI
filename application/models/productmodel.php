@@ -14,7 +14,7 @@ class Productmodel extends CI_Model {
 	public function getDetails()
 	{
 		// Selección de las columnas que vamos a visualizar
-		$this->db->select("id, precio, nombre, qty,");
+		$this->db->select("id, precio, nombre, precio, oferta, descripcion, productor,");
 
 		//result() regresa un arreglo de objetos
 		$products = $this->db->get("product")->result();

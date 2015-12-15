@@ -41,7 +41,7 @@ $route['user/login'] 				= "user/login";
 $route['user/register'] 			= "user/register";
 $route['product/availability']		= "product/getAvailability";
 $route['default_controller'] 		= "welcome";
-$route['item/details'] 			= "product/getDetails";
+$route['item/details'] 				= "product/getDetails";
 $route['404_override'] = '';
 
 
