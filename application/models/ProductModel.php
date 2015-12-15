@@ -30,4 +30,55 @@ class ProductModel extends CI_Model {
         }
     }
 
+    function productInsert($newProduct){
+        /*
+        *
+        * Insert new Product
+        *
+        */
+
+        $this->db->insert("Product",$newProduct);
+        $productID = $this->db->insert_id();
+        return $productID;
+    }
+
+    function productCategoryInsert($newProductCategory) {
+        /*
+        *
+        * Insert new Product Category
+        *
+        */
+
+        $this->db->insert("ProductCategory",$newProductCategory);
+        $productCategoryID = $this->db->insert_id();
+        return $productCategoryID;
+
+    }
+
+    function productSizeInsert($newProductSize) {
+        /*
+        *
+        * Insert new Product Size
+        *
+        */
+
+        $this->db->insert("ProductSize",$newProductSize);
+        $productSizeID = $this->db->insert_id();
+        return $productSizeID;
+
+    }
+
+    function productSizesInsert($newProductSizes){
+        /*
+        *
+        * Insert multiple Product Sizes
+        *
+        */
+
+        foreach($newProductSizes as $newProductSize){
+            self::productSizeInsert($newProductSize);
+        }
+
+    }
+
 }
