@@ -37,11 +37,16 @@ class ProductImageModel extends CI_Model {
             'url' => $url
         );
         $query = $this->db->insert('ProductImage', $dataProductImage);
+
+        $response["responseStatus"]= $dataProductImage;
+         return $dataProductImage; 
         if($query){
-            return $this->db->insert_id();
+             //return $dataProductImage; 
+            return $response; 
         }else{
             return false;
         }
+
     }
 
 }

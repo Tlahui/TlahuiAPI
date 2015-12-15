@@ -38,27 +38,25 @@ class ProductImageController extends CI_Controller {
         $productID = $this->input->post("idProduct");
      
 
-   if (!$this->upload->do_upload()){
-            echo "failed";
+   if (!$this->upload->do_upload('url')){
             $response['responseStatus'] = "failed";
         }
         else
         {
                $dataImage = array('upload_data' => $this->upload->data());
-                echo json_encode($dataImage);
-             $addProductImage = $this->ProductImageModel->AddProductImage($productID, $dataImage["upload_data"]["file_name"]);
-               echo json_encode($addProductImage);
+                $addProductImage = $this->ProductImageModel->AddProductImage($productID, $dataImage["upload_data"]["file_name"]);
                 if($addProductImage){
                     $response["responseStatus"] = "OK";
                     $response["url"] = $dataImage["upload_data"]["file_name"];
                     $response["IDImage"] = $addProductImage;
-                }else{
-                    $response["message"] = "Error";
                 }
-        
-
-        echo json_encode($response);
-  }
+                else{
+                    $response["responseStatus"] = "Error";
+                }
+               
+        }
+         echo json_encode($response);       
+  
 }
 
 }
