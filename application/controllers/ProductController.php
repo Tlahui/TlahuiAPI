@@ -157,6 +157,23 @@ class ProductController extends CI_Controller {
     }
 
     public function featured(){
+        /************************
+        *
+        *  Get Featured Products
+        *
+        *************************/
+        $this->load->model('CategoryModel');
+        $this->load->model('ProductImageModel');
+        $productos = $this->ProductModel->ProductListFeatured();
+        $i=0;
+        foreach($productos as $producto){
+            $imagenes = $this->ProductImageModel->ImageListFromProduct($producto['id']);
+            $categorias = $this->CategoryModel->CategoryFromProduct($producto['id']);
+            $productos[$i]['imagenes']=$imagenes;
+            $productos[$i]['categorias']=$categorias;
+            $i++;
+        }
+        $this->output->set_content_type('application/json')->set_output(json_encode( $productos ));
 
     }
 
