@@ -119,13 +119,15 @@ class ProductController extends CI_Controller {
                 $productID = $this->productModel->productInsert($newProduct);
 
                 // Agregar la Categoria
+                $this->load->model("productCategoryModel");
                 $newProductCategory [ "idProduct" ]    = $productID;
-                $this->productModel->productCategoryInsert($newProductCategory);
+                $this->productCategoryModel->productCategoryInsert($newProductCategory);
 
                 // Agregar Tallas
+                $this->load->model("productSizeModel");
                 foreach ($tallas as $talla) {
                     $talla ["idProduct"] = $productID;
-                    $this->productModel->productSizeInsert($talla);
+                    $this->productSizeModel->productSizeInsert($talla);
                 }
             } catch (Exception $e) {
                 $response[ "responseStatus" ] = "FAIL";
