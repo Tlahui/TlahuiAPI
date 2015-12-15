@@ -26,6 +26,14 @@ class ProductImageController extends CI_Controller {
     }
 
     public function get($id){
+        $imagen = $this->ProductImageModel->ImageFromProduct($id);
+        //$imagen = false;
+        if($imagen){
+          $this->output->set_content_type('application/json')->set_output(json_encode( $imagen ));  
+        }
+        else{
+          $this->output->set_content_type('application/json')->set_output(json_encode( array('responseStatus'=>'FAIL', 'message'=>'El producto no tiene imagenes.') ));  
+        }
 
     }
 

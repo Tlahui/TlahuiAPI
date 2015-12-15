@@ -30,5 +30,16 @@ class ProductImageModel extends CI_Model {
             return 0;
         }
     }
+    function ImageFromProduct($id){    
+        $query = $this->db->get_where('ProductImage', array('id' => $id));
+        if ($query->num_rows() > 0)
+            {
+               return $query->row_array(); 
+            }
+        else
+            {
+                return false;
+            }
 
+    }
 }
