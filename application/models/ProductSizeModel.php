@@ -51,4 +51,23 @@ class ProductSizeModel extends CI_Model {
 
     }
 
+    /**
+     * Borrar ProductSize
+     *
+     *
+     * @author Chiunti
+     * @return ProductSizeID|integer
+     */
+    function productSizeDelete($productID) {
+        /*
+        *
+        * Delete Product Size
+        *
+        */
+
+        $this->db->delete('ProductSize', array('idProduct' => $productID)); 
+        return true;
+
+    }
+
 }
