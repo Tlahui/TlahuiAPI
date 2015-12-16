@@ -150,6 +150,72 @@ class ProductController extends CI_Controller {
         *  Edicion de Productos
         *
         ******************************************/
+        // leer json de entrada
+        $data = self::readInputJson();
+        // validar que no venga vacio
+        if (!empty($data)){
+            try {
+
+                // Validar que los campos no vengan vacios
+                if (!array_key_exists('id', $data)                  or empty($data['id']) )
+                    throw new Exception(" - missing id",     1);
+                $fieldMissing = true;
+                if (array_key_exists('nombre', $data))
+                    $fieldMissing = false;
+                if (array_key_exists('precio', $data))
+                    $fieldMissing = false;
+                if (array_key_exists('oferta', $data))
+                    $fieldMissing = false;
+                if (array_key_exists('descripcion', $data))
+                    $fieldMissing = false;
+                if (array_key_exists('productor', $data))
+                    $fieldMissing = false;
+
+                if ($fieldMissing)
+                    throw new Exception(" - No hay campos para actualizar",     1);
+
+            } catch (Exception $e) {
+                $response[ "responseStatus" ] = "FAIL";
+                $response[ "message" ]        = "Error en el json: ".$e->getMessage();
+                $this->output->set_content_type('application/json')->set_output(json_encode( $response ));
+                return;
+            }
+
+            try {
+                // modificar el producto
+                // cargar el modelo de la tabla product
+                $this->load->model("productModel");
+                // obtener el id que será modificado
+                $productID  = $data [ "id" ];
+                // crear un aray con los campos que se modificaran
+                if (array_key_exists('nombre', $data)              )
+                    $dataUpdate [ "nombre" ]             = $data [ "nombre" ];
+                if (array_key_exists('precio', $data)              )
+                    $dataUpdate [ "precio" ]             = $data [ "precio" ];
+                if (array_key_exists('oferta', $data)              )
+                    $dataUpdate [ "oferta" ]             = $data [ "oferta" ];
+                if (array_key_exists('descripcion', $data)         )
+                    $dataUpdate [ "descripcion" ]        = $data [ "descripcion" ];
+                if (array_key_exists('productor', $data)           )
+                    $dataUpdate [ "productor" ]          = $data [ "productor" ];
+
+                // Actualizar Product
+                if (!$this->productModel->productUpdate($productID,$dataUpdate))
+                     throw new Exception(" - Producto no se encuentra",     1);
+
+            } catch (Exception $e) {
+                $response[ "responseStatus" ] = "FAIL";
+                $response[ "message" ]        = "Producto no pudo ser modificado: ".$e->getMessage();
+                $this->output->set_content_type('application/json')->set_output(json_encode( $response ));
+                return;
+            }
+
+            $response[ "responseStatus" ] = "OK";
+            $response[ "message" ]        = "Producto modificado correctamente";
+            $response[ "data" ]           = array('id' => $productID);
+            $this->output->set_content_type('application/json')->set_output(json_encode( $response ));
+        }
+        return;
 
     }
 

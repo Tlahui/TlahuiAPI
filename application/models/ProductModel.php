@@ -60,4 +60,19 @@ class ProductModel extends CI_Model {
         return $productID;
     }
 
+    function productUpdate($productID,$data){
+        /*
+        *
+        * Update Product
+        *
+        */
+        $query = $this->db->get_where('Product', array('id' => $productID));
+        if ($query->num_rows() > 0){
+
+            $this->db->update('Product', $data, array('id' => $productID));
+            return true;
+        }
+        return false;
+    }
+
 }
