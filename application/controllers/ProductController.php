@@ -149,7 +149,11 @@ class ProductController extends CI_Controller {
     }
 
     public function delete(){
-
+        /******************************************
+        *
+        *  Borrar Productos
+        *
+        ******************************************/
     }
 
     public function get($id){
