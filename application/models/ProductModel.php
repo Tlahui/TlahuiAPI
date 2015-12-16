@@ -60,4 +60,23 @@ class ProductModel extends CI_Model {
         return $productID;
     }
 
+    function productDelete($productID){
+        /*
+        *
+        * Delete Product
+        *
+        */
+        $this->db->delete('Product', array('id' => $productID)); 
+    }
+
+    function productExist($productID){
+        /*
+        *
+        * Check if exist Product
+        *
+        */
+        $query = $this->db->get_where('Product', array('id' => $productID));
+        return ($query->num_rows() > 0);
+    }
+
 }

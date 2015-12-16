@@ -31,4 +31,22 @@ class ProductCategoryModel extends CI_Model {
         return $productCategoryID;
     }
 
+    /**
+     * Borrar Product Category
+     *
+     *
+     * @author Chiunti
+     * @param ProductCategoryId|integer
+     */
+    function productCategoryDelete($productID) {
+        /*
+        *
+        * Delete Product Category
+        *
+        */
+
+        $this->db->delete('ProductCategory', array('idProduct' => $productID)); 
+        return true;
+    }
+
 }

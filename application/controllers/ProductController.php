@@ -154,6 +154,49 @@ class ProductController extends CI_Controller {
         *  Borrar Productos
         *
         ******************************************/
+        // leer json de entrada
+        $data = self::readInputJson();
+        // validar que no venga vacio
+        if (!empty($data)){
+            try {
+
+                // Validaciones de que los campos no vengan vacios
+                if (!array_key_exists('id', $data)              or empty($data['id']) )
+                    throw new Exception(" - missing id", 1);
+                $productID = $data [ "id" ];
+            } catch (Exception $e) {
+                $response[ "responseStatus" ] = "FAIL";
+                $response[ "message" ]        = "Error en el json: ".$e->getMessage();
+                $this->output->set_content_type('application/json')->set_output(json_encode( $response ));
+                return;
+            }
+
+            try {
+                // Borrar el producto
+                $this->load->model("productModel");
+
+                if (!$this->productModel->productExist($productID))
+                    throw new Exception(" - Product not found", 1);
+                $this->productModel->productDelete($productID);
+                // Borrar el product size
+                $this->load->model("productSizeModel");
+                $this->productSizeModel->productSizeDelete($productID);
+                // Borrar el product Category
+                $this->load->model("productCategoryModel");
+                $this->productCategoryModel->productCategoryDelete($productID);
+
+            } catch (Exception $e) {
+                $response[ "responseStatus" ] = "FAIL";
+                $response[ "message" ]        = "Producto no pudo ser eliminado: ".$e->getMessage();
+                $this->output->set_content_type('application/json')->set_output(json_encode( $response ));
+                return;
+            }
+
+            $response[ "responseStatus" ] = "OK";
+            $response[ "message" ]        = "Producto eliminado correctamente";
+            $this->output->set_content_type('application/json')->set_output(json_encode( $response ));
+        }
+        return;
     }
 
     public function get($id){
