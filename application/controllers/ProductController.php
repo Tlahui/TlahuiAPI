@@ -145,6 +145,11 @@ class ProductController extends CI_Controller {
     }
 
     public function edit(){
+        /******************************************
+        *
+        *  Edicion de Productos
+        *
+        ******************************************/
 
     }
 
