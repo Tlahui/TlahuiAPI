@@ -73,7 +73,24 @@ class PurchaseModel extends CI_Model {
         else {
             return false;
         }
+    }
 
+    public function get($idPurchase){
+        $purchase = $this->getInfo($idPurchase);
+
+        if($purchase != null) {
+            $this->db->select("idUser");
+            $idAdd = $purchase["idAdd"];
+            $idUser = $this->db->get_where("Address",array("id"=>$idAdd))->row();
+
+            $data["idUser"] = $idUser->idUser;
+            $data["purchase"] = $purchase;
+
+            return $data;
+        }
+        else {
+            return false;
+        }
     }
 
 }
