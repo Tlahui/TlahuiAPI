@@ -79,4 +79,28 @@ class PurchaseController extends CI_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
+    /*
+     * Funcion para solicitar el listado de compra
+     */
+    public function user($idPurchase){
+
+      $response["responseStatus"] = "FAIL";
+      $response["message"] = "No existe";
+
+      if(is_numeric($idPurchase) && $idPurchase != 0 ){
+          $this->load->model("PurchaseModel");
+          $purchaseGet = $this->PurchaseModel->get($idPurchase);
+          if($purchaseGet){
+              $this->output->set_content_type('application/json')->set_output(json_encode( $purchaseGet ));
+              //echo $purchaseGet;
+          }
+          else {
+              $this->output->set_content_type('application/json')->set_output(json_encode( $response ));
+          }
+      }
+      else {
+          $this->output->set_content_type('application/json')->set_output(json_encode( $response ));
+      }
+
+    }
 }
