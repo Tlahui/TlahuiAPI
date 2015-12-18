@@ -3,30 +3,19 @@
 class AddressController extends CI_Controller {
 
 	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
+	 * Listado de direcciones de un usuario
 	 */
-	public function all($id)
+		public function all()
 	{
-		/*
-		*
-		* Get all
-		*
-		* Lista todas las direcciones del  id usuario
-		*/
+		$userID = $this->input->post("idUser");
+
+		$this->load->model("AddressModel");
+		$response["idUser"] = $userID;
+		$response["direccion"] = $this->AddressModel->allAddress($userID);
+
+		echo json_encode($response);
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file AddressController.php */
+/* Location: ./application/controllers/AddressController.php */
