@@ -29,4 +29,34 @@ class UserModel extends CI_Model {
 		$user = $this->db->get("user")->result();
 		return $user;
 	}
+
+
+    public function update($userID,$user)
+    {
+        $this->db->where("id",$userID);        
+        $found = $this->db->get("user")->row();
+
+        if ( $found ) {
+            $this->db->where("id",$userID);            
+            $this->db->update("user",$user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteUser($userID)
+    {
+        $this->db->where("id",$userID);
+        $found = $this->db->get("user")->row();
+
+        if ($found){
+            $this->db->where("id",$userID);
+            $this->db->delete("user");
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }
